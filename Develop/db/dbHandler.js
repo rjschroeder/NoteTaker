@@ -1,10 +1,11 @@
 const fs = require("fs");
+const path = require("path");
 
 let noteArray = [];
 
 function parseNotes() {
     return new Promise(resolve => {
-        fs.readFile("./db.json", "utf-8", (err, data) => {
+        fs.readFile(path.join(__dirname, "./db.json"), "utf-8", (err, data) => {
             try {
                 resolve(JSON.parse(data));
             } catch (err) {
@@ -21,7 +22,7 @@ async function readNotes(){
 async function addNote(note) {
     noteArray = await readNotes();
     noteArray.push(note);
-    fs.writeFile("./db.json", JSON.stringify(noteArray), (err) => {
+    fs.writeFile(path.join(__dirname, "./db.json"), JSON.stringify(noteArray), (err) => {
         if (err) {
             console.log(err);
         }
