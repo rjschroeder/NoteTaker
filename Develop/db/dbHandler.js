@@ -1,5 +1,4 @@
 const fs = require("fs");
-const path = require("path");
 
 let noteArray = [];
 
@@ -29,8 +28,4 @@ async function addNote(note) {
     })
 }
 
-note = {
-    name: "Test2",
-    text: "testText2"
-}
-addNote(note);
+module.exports = {readNotes, addNote}
