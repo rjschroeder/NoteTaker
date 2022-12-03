@@ -6,13 +6,21 @@ let noteArray = [];
 function parseNotes() {
     return new Promise(resolve => {
         fs.readFile("./db.json", "utf-8", (err, data) => {
-            resolve(JSON.parse(data));
+            try {
+                resolve(JSON.parse(data));
+            } catch (err) {
+                resolve([]);
+            }
         })
     })
 }
 
+async function readNotes(){
+    return await parseNotes();
+}
+
 async function addNote(note) {
-    noteArray = await parseNotes();
+    noteArray = await readNotes();
     noteArray.push(note);
     fs.writeFile("./db.json", JSON.stringify(noteArray), (err) => {
         if (err) {
@@ -25,4 +33,4 @@ note = {
     name: "Test2",
     text: "testText2"
 }
-addNote(note);
+//addNote(note);
