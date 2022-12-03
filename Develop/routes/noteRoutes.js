@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { readNotes, addNote} = require("../db/dbHandler");
 
 router.get("/notes", (req, res) => {
-    dbHandler.readNotes()
+    readNotes()
     .then((response) => {
         return res.json(response)
     })
@@ -12,7 +12,7 @@ router.get("/notes", (req, res) => {
 })
 
 router.post("/notes", (req, res) => {
-    dbHandler.addNote(req.body)
+    addNote(req.body)
     .then((response) => {
         res.json(response)
     })
