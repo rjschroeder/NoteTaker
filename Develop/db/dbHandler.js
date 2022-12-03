@@ -33,4 +33,4 @@ note = {
     name: "Test2",
     text: "testText2"
 }
-//addNote(note);
+addNote(note);
