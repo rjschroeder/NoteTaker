@@ -3,6 +3,7 @@ let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
+let savedNotesRendered;
 
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
@@ -10,6 +11,7 @@ if (window.location.pathname === '/notes') {
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
   noteList = document.querySelectorAll('.list-container .list-group');
+  savedNotesRendered = []
 }
 
 // Show an element
@@ -44,8 +46,7 @@ const saveNote = (note) =>
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);
-
-  if (activeNote.id) {
+  if(savedNotesRendered.includes(activeNote.title)){
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
@@ -119,6 +120,7 @@ const renderNoteList = async (notes) => {
   }
 
   jsonNotes.forEach((note) => {
+    savedNotesRendered.push(note.title);
     const li = createLi(note.title);
     li.dataset.note = JSON.stringify(note);
 
