@@ -10,3 +10,15 @@ router.get("/notes", (req, res) => {
         res.status(500).json(err)
     });
 })
+
+router.post("/notes", (req, res) => {
+    dbHandler.addNote(req.body)
+    .then((response) => {
+        res.json(response)
+    })
+    .catch((err) => {
+        res.status(500).json(err)
+    });
+})
+
+module.exports = router
