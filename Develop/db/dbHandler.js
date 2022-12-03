@@ -1,9 +1,28 @@
 const fs = require("fs");
 const path = require("path");
 
+let noteArray = [];
+
 function readNotes() {
-    fs.readFile("./db.json", "utf-8", (err, data) => {
-        console.log(JSON.parse(data));
-    });
+    return new Promise(resolve => {
+        fs.readFile("./db.json", "utf-8", (err, data) => {
+            resolve(JSON.parse(data));
+        })
+    })
 }
-readNotes();
+
+async function addNote(note) {
+    noteArray = await readNotes();
+    noteArray.push(note);
+    fs.writeFile("./db.json", JSON.stringify(noteArray), (err) => {
+        if (err) {
+            console.log(err);
+        }
+    })
+}
+
+note = {
+    name: "Test2",
+    text: "testText2"
+}
+addNote(note);
