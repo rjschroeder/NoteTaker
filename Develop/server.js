@@ -2,6 +2,7 @@ const express = require("Express");
 const routes = require("./routes/routes");
 const noteRoutes = require("./routes/noteRoutes");
 
+//standard server code
 const app = express();
 const PORT = process.env.PORT || 3001;
 

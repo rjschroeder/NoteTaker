@@ -11,6 +11,7 @@ if (window.location.pathname === '/notes') {
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
   noteList = document.querySelectorAll('.list-container .list-group');
+  //added this as a list of which notes are already created since I do not have id's for my notes
   savedNotesRendered = []
 }
 
@@ -46,6 +47,9 @@ const saveNote = (note) =>
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);
+  //instead of checking for an id to tell if the note is from storage,
+  //here is where I reference my array of titles of notes from storage instead.
+  //same concept as ids
   if(savedNotesRendered.includes(activeNote.title)){
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
@@ -120,6 +124,7 @@ const renderNoteList = async (notes) => {
   }
 
   jsonNotes.forEach((note) => {
+    //here is where I fill my array of titles of notes from storage
     savedNotesRendered.push(note.title);
     const li = createLi(note.title);
     li.dataset.note = JSON.stringify(note);

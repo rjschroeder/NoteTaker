@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { readNotes, addNote} = require("../db/dbHandler");
 
+//standard routes code
 router.get("/notes", (req, res) => {
     readNotes()
     .then((response) => {
