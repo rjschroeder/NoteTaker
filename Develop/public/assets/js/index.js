@@ -42,14 +42,6 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
-const deleteNote = (id) =>
-  fetch(`/note/notes/${id}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-
 const renderActiveNote = () => {
   hide(saveNoteBtn);
 
@@ -72,24 +64,6 @@ const handleNoteSave = () => {
     text: noteText.value,
   };
   saveNote(newNote).then(() => {
-    getAndRenderNotes();
-    renderActiveNote();
-  });
-};
-
-// Delete the clicked note
-const handleNoteDelete = (e) => {
-  // Prevents the click listener for the list from being called when the button inside of it is clicked
-  e.stopPropagation();
-
-  const note = e.target;
-  const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
-
-  if (activeNote.id === noteId) {
-    activeNote = {};
-  }
-
-  deleteNote(noteId).then(() => {
     getAndRenderNotes();
     renderActiveNote();
   });
@@ -125,8 +99,8 @@ const renderNoteList = async (notes) => {
 
   let noteListItems = [];
 
-  // Returns HTML element with or without a delete button
-  const createLi = (text, delBtn = true) => {
+  // Returns HTML element
+  const createLi = (text) => {
     const liEl = document.createElement('li');
     liEl.classList.add('list-group-item');
 
@@ -136,20 +110,6 @@ const renderNoteList = async (notes) => {
     spanEl.addEventListener('click', handleNoteView);
 
     liEl.append(spanEl);
-
-    if (delBtn) {
-      const delBtnEl = document.createElement('i');
-      delBtnEl.classList.add(
-        'fas',
-        'fa-trash-alt',
-        'float-right',
-        'text-danger',
-        'delete-note'
-      );
-      delBtnEl.addEventListener('click', handleNoteDelete);
-
-      liEl.append(delBtnEl);
-    }
 
     return liEl;
   };
