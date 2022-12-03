@@ -3,7 +3,7 @@ const path = require("path");
 
 let noteArray = [];
 
-function readNotes() {
+function parseNotes() {
     return new Promise(resolve => {
         fs.readFile("./db.json", "utf-8", (err, data) => {
             resolve(JSON.parse(data));
@@ -12,7 +12,7 @@ function readNotes() {
 }
 
 async function addNote(note) {
-    noteArray = await readNotes();
+    noteArray = await parseNotes();
     noteArray.push(note);
     fs.writeFile("./db.json", JSON.stringify(noteArray), (err) => {
         if (err) {
